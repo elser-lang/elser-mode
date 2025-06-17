@@ -1,11 +1,17 @@
 ;;; elser-mode.el --- major mode for elser  -*- lexical-binding: t; -*-
 
 ;; Author: дрон
-;; Version: 0.1
+;; Version: 0.0.1
 ;; Keywords: languages, elser
 ;; URL: https://github.com/elser-lang/elser-mode
 
 ;;; Code:
+
+(defgroup elser-mode nil
+  "Major mode for Elser language."
+  :prefix "elser-"
+  :group 'languages
+  :link '(url-link :tag "Github" "https://github.com/elser-lang/elser-mode"))
 
 (defconst elser-font-lock-keywords
   (let* (
