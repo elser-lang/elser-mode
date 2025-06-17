@@ -1,5 +1,12 @@
 ;;; elser-mode.el --- major mode for elser  -*- lexical-binding: t; -*-
 
+;; Author: дрон
+;; Version: 0.1
+;; Keywords: languages, elser
+;; URL: https://github.com/elser-lang/elser-mode
+
+;;; Code:
+
 (defconst elser-font-lock-keywords
   (let* (
 	 
@@ -45,16 +52,16 @@
        ;; Complex types.
        (,(regexp-opt complex-types 'words) . font-lock-type-face)
 
+       (,(concat "\\_<" (regexp-opt var-defs) "\\_>"
+		 "\\s-*" 
+		 "\\(\\_<\\(?:\\sw\\|\\s_\\)+\\_>\\)")
+	1 font-lock-variable-name-face)       
+
        (,(concat "\\_<" (regexp-opt ns-defs) "\\_>\\s-+\\(\\sw+\\)")
 	1 font-lock-string-face)
        
        (,(concat "\\_<" (regexp-opt func-defs) "\\_>\\s-+\\(\\sw+\\)")
-	1 font-lock-function-name-face)
-       
-       (,(concat "\\_<" (regexp-opt var-defs) "\\_>"
-		 "\\s-*" 
-		 "\\(\\_<\\(?:\\sw\\|\\s_\\)+\\_>\\)")
-	1 font-lock-variable-name-face)
+	1 font-lock-function-name-face)      
 
        (,(concat "\\_<" (regexp-opt return-bind) "\\_>\\s-+\\(\\sw+\\)")
 	1 font-lock-variable-name-face)
@@ -70,3 +77,6 @@
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.els" . elser-mode))
+
+(provide 'elser-mode)
+;;; elser-mode.el ends here
