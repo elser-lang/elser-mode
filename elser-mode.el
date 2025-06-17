@@ -6,11 +6,14 @@
          (structure '("constructor" "storage" "constants" "events" "functions"))
 	 (ns-defs '("ns"))
 	 
-         (visibility '(":external" ":internal"))
+         (visibility '(":external" ":internal"))	 
 	 
-         (builtins '("sto" "require" "do" "let" "loop"
-		     "assert" "->" "while"))
+         (builtins '("sto" "require" "do" "let" "loop" "revert" "timestamp"
+		     "self" "callvalue" "caller" "origin" "balance"
+		     "assert" "->" "while" "addr.zero" "if"))
 
+	 (return-bind '("->"))
+	 
 	 (var-defs '("def"))
 	 
 	 (func-defs '("defn"))
@@ -30,9 +33,10 @@
        (,(regexp-opt visibility) . font-lock-builtin-face)
        
        ;; Built-in functions.
-       (,(regexp-opt builtins 'words) . font-lock-keyword-face)
-       (,(regexp-opt func-defs 'words) . font-lock-keyword-face)
-       (,(regexp-opt var-defs 'words) . font-lock-keyword-face)
+       (,(regexp-opt builtins) . font-lock-keyword-face)
+       (,(regexp-opt return-bind) . font-lock-keyword-face)
+       (,(regexp-opt func-defs) . font-lock-keyword-face)
+       (,(regexp-opt var-defs) . font-lock-keyword-face)
        (,(regexp-opt mutations) . font-lock-warning-face)       
        
        ;; Simple types.
@@ -45,16 +49,24 @@
 	1 font-lock-string-face)
        
        (,(concat "\\_<" (regexp-opt func-defs) "\\_>\\s-+\\(\\sw+\\)")
-	1 font-lock-function-name-face) 
+	1 font-lock-function-name-face)
        
-       (,(concat "\\_<" (regexp-opt var-defs) "\\_>\\s-+\\(\\sw+\\)")
+       (,(concat "\\_<" (regexp-opt var-defs) "\\_>"
+		 "\\s-*" 
+		 "\\(\\_<\\(?:\\sw\\|\\s_\\)+\\_>\\)")
+	1 font-lock-variable-name-face)
+
+       (,(concat "\\_<" (regexp-opt return-bind) "\\_>\\s-+\\(\\sw+\\)")
 	1 font-lock-variable-name-face)
 
        (,(concat "\\_<" (regexp-opt mutations) "\\_>\\s-+\\(\\sw+\\)")
 	1 font-lock-variable-name-face)
        ))))
 
-
+;;;###autoload
 (define-derived-mode elser-mode lisp-mode "Elser"
   "Major mode for Elser DSL."
   (setq font-lock-defaults elser-font-lock-keywords))
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.els" . elser-mode))
