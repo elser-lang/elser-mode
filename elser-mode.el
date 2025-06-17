@@ -46,11 +46,11 @@
        (,(regexp-opt visibility) . font-lock-builtin-face)
        
        ;; Built-in functions.
-       (,(regexp-opt builtins) . font-lock-keyword-face)
+       (,(concat "\\_<" (regexp-opt builtins) "\\_>") . font-lock-keyword-face)
        (,(regexp-opt return-bind) . font-lock-keyword-face)
-       (,(regexp-opt func-defs) . font-lock-keyword-face)
-       (,(regexp-opt var-defs) . font-lock-keyword-face)
-       (,(regexp-opt mutations) . font-lock-warning-face)       
+       (,(concat "\\_<" (regexp-opt func-defs) "\\_>") . font-lock-keyword-face)
+       (,(concat "\\_<" (regexp-opt var-defs) "\\_>") . font-lock-keyword-face)
+       (,(regexp-opt mutations) . font-lock-warning-face)
        
        ;; Simple types.
        (,(regexp-opt simple-types) . font-lock-type-face)
