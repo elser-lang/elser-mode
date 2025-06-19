@@ -19,7 +19,9 @@
          (structure '("constructor" "storage" "constants" "events" "functions"))
 	 (ns-defs '("ns"))
 	 
-         (visibility '(":external" ":internal" "mut"))	 
+         (visibility '(":external" ":internal"))
+
+	 (permissions '("@sto"))
 	 
          (builtins '("sto" "require" "do" "let" "loop" "revert" "timestamp"
 		     "self" "callvalue" "caller" "origin" "balance"
@@ -43,10 +45,13 @@
        (,(regexp-opt ns-defs 'words) . font-lock-type-face)
        
        ;; Visibility keywords.
-       (,(concat "\\_<" (regexp-opt visibility) "\\_>") . font-lock-builtin-face)
+       (,(regexp-opt visibility) . font-lock-builtin-face)
+       ;; 'mut' as standalone keyword.
+       (,(concat "\\_<" (regexp-opt '("mut")) "\\_>") . font-lock-builtin-face)
+       (,(regexp-opt permissions) . font-lock-builtin-face)
        
        ;; Built-in functions.
-       (,(concat "\\_<" (regexp-opt builtins) "\\_>") . font-lock-keyword-face)
+       (,(concat "\\_<" (regexp-opt builtins) "\\_>") . font-lock-keyword-face)       
        (,(regexp-opt return-bind) . font-lock-keyword-face)
        (,(concat "\\_<" (regexp-opt func-defs) "\\_>") . font-lock-keyword-face)
        (,(concat "\\_<" (regexp-opt var-defs) "\\_>") . font-lock-keyword-face)
