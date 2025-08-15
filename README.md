@@ -23,6 +23,7 @@ On top of Lisps's indentation rules Elser's major-mode follows the ideas of expl
 
 For example, here's `elser-mode` manually applied to the buffer with initially enabled `clojure-mode`, to show how `elser-mode` differs in terms of highlighting critical operations:
 
-![e](https://github.com/user-attachments/assets/95b3d2a5-cef1-4942-81f7-57f59fa5459a)
+![bebra](https://github.com/user-attachments/assets/3b0bd8c3-46b1-4cc0-97e1-510fb28df800)
+
 
 
