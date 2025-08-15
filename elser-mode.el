@@ -1,4 +1,4 @@
-;;; elser-mode.el --- major mode for elser  -*- lexical-binding: t; -*-
+;;; elser-mode.el --- major mode for elser
 
 ;; Author: дрон
 ;; Version: 0.0.1
@@ -16,15 +16,16 @@
 (defconst elser-font-lock-keywords
   (let* (
 	 
-         (structure '("constructor" "storage" "constants" "events" "functions"))
+         (structure '("constructor" "storage" "transient" "constants" "events" "functions"))
 	 (ns-defs '("ns"))
 	 
          (visibility '(":external" ":internal"))
 
-	 (permissions '("@sto"))
+	 (permissions '("@sto" "@trn"))
 	 
-         (builtins '("sto" "require" "do" "let" "loop" "revert" "timestamp"
-		     "self" "callvalue" "caller" "origin" "balance"
+         (builtins '("sto" "tst" "require" "do" "step" "let" "loop" "revert" "timestamp"
+		     "self" "callvalue" "caller" "origin" "balance" "number"
+		     "selfbalance"
 		     "assert" "->" "while" "addr.zero" "if"))
 
 	 (return-bind '("->"))
@@ -51,7 +52,7 @@
        (,(regexp-opt permissions) . font-lock-builtin-face)
        
        ;; Built-in functions.
-       (,(concat "\\_<" (regexp-opt builtins) "\\_>") . font-lock-keyword-face)       
+       (,(concat "\\_<" (regexp-opt builtins) "\\_>") . font-lock-keyword-face)
        (,(regexp-opt return-bind) . font-lock-keyword-face)
        (,(concat "\\_<" (regexp-opt func-defs) "\\_>") . font-lock-keyword-face)
        (,(concat "\\_<" (regexp-opt var-defs) "\\_>") . font-lock-keyword-face)
@@ -64,15 +65,15 @@
        (,(regexp-opt complex-types 'words) . font-lock-type-face)
 
        (,(concat "\\_<" (regexp-opt var-defs) "\\_>"
-		 "\\s-*" 
+		 "\\s-*"
 		 "\\(\\_<\\(?:\\sw\\|\\s_\\)+\\_>\\)")
-	1 font-lock-variable-name-face)       
+	1 font-lock-variable-name-face)
 
        (,(concat "\\_<" (regexp-opt ns-defs) "\\_>\\s-+\\(\\sw+\\)")
 	1 font-lock-string-face)
        
        (,(concat "\\_<" (regexp-opt func-defs) "\\_>\\s-+\\(\\sw+\\)")
-	1 font-lock-function-name-face)      
+	1 font-lock-function-name-face)
 
        (,(concat "\\_<" (regexp-opt return-bind) "\\_>\\s-+\\(\\sw+\\)")
 	1 font-lock-variable-name-face)
